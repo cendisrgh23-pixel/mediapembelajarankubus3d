@@ -1,0 +1,3852 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Kubus 3D</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+    body {
+    background: #F8FBFD;
+    color: #304B5C;
+    }
+
+    .container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .sidebar {
+        width: 250px;
+        background: #D9ECF7;
+        padding: 25px 18px;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 30px;
+        text-align: center;
+        color: #547D9B;
+    }
+
+    .menu {
+        display: block;
+        width: 100%;
+        padding: 13px;
+        margin-bottom: 8px;
+        border: none;
+        border-radius: 9px;
+        background: transparent;
+        color: #547D9B;
+        text-align: left;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .menu:hover,
+.menu.active {
+    background: #9CCCE3;
+    color: white;
+}
+
+    .main {
+        flex: 1;
+        padding: 35px;
+    }
+
+    #content {
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    h1 {
+    margin-bottom: 25px;
+    color: #547D9B;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+    .welcome {
+    background: white;
+    padding: 30px;
+    margin-bottom: 22px;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(84, 125, 155, 0.10);
+    border: 1px solid #E5F1F8;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.welcome:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 9px 22px rgba(84, 125, 155, 0.15);
+}
+    .welcome h2 {
+    margin-bottom: 15px;
+    color: #547D9B;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+    .welcome p {
+        line-height: 1.7;
+    }
+    .welcome ul {
+    padding-left: 25px;
+    margin-top: 12px;
+    line-height: 2;
+}
+
+.welcome li {
+    margin-bottom: 6px;
+}
+
+.welcome h3 {
+    color: #547D9B;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+.contoh-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.contoh-card {
+    background: #F8FBFD;
+    border: 1px solid #E5F1F8;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.contoh-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(84,125,155,0.12);
+}
+
+.contoh-card .emoji {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.contoh-card h3 {
+    color: #547D9B;
+    margin-bottom: 7px;
+}
+.penjelasan-diagonal {
+    background: #EAF4FA;
+    color: #547D9B;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    text-align: center;
+}
+.jenis-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.jenis-card {
+    background: #F1F8FC;
+    border: 1px solid #D9ECF7;
+    border-radius: 16px;
+    padding: 22px;
+}
+
+.jenis-card h3 {
+    color: #547D9B;
+    margin-bottom: 10px;
+}
+
+.jenis-card p {
+    line-height: 1.7;
+}
+#kubus-3d {
+    width: 100%;
+    height: 400px;
+    background: #F1F8FC;
+    border: 1px solid #D9ECF7;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+#diagonal-sisi-3d,
+#diagonal-ruang-3d {
+    width: 100%;
+    height: 350px;
+    background: #F1F8FC;
+    border: 1px solid #D9ECF7;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 15px auto;
+}
+#diagonal-sisi-3d,
+#diagonal-ruang-3d {
+    width: 100%;
+    height: 350px;
+}
+
+#content .contoh-grid:has(#diagonal-sisi-3d) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+#content .contoh-card {
+    min-width: 0;
+}
+#jaring-kubus {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(3, 70px);
+    justify-content: center;
+    margin: 25px auto;
+}
+#jaring-kubus-3d {
+    width: 100%;
+    height: 400px;
+    background: #F1F8FC;
+    border-radius: 12px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.persegi {
+    width: 70px;
+    height: 70px;
+    background: #B9D8EA;
+    border: 2px solid #547D9B;
+    box-sizing: border-box;
+    transition: transform 1s ease;
+}
+
+.persegi.atas {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.persegi.kiri {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.persegi.tengah {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.persegi.kanan {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.persegi.bawah {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.persegi.bawah2 {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#jaring-kubus.terbuka .atas {
+    transform: translateY(-70px);
+}
+
+#jaring-kubus.terbuka .bawah2 {
+    transform: translateY(70px);
+}
+
+#jaring-kubus.terbuka .kiri {
+    transform: translateX(-70px);
+}
+
+#jaring-kubus.terbuka .kanan {
+    transform: translateX(70px);
+}
+.tombol-jaring {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px;
+}
+
+.tombol-jaring button {
+    background: #547D9B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tombol-jaring button:hover {
+    background: #3F6682;
+}
+#kubus-rumus-3d {
+    width: 100%;
+    height: 400px;
+    background: #F1F8FC;
+    border-radius: 12px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+#animasi-luas-kubus {
+    width: 100%;
+    height: 400px;
+    background: #F1F8FC;
+    border-radius: 12px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+#animasi-volume-kubus {
+    width: 100%;
+    height: 400px;
+    background: #F1F8FC;
+    border-radius: 12px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+.perbandingan-gambar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.perbandingan-gambar > div {
+    text-align: center;
+    background: #F1F8FC;
+    padding: 15px;
+    border-radius: 12px;
+}
+.perbandingan-gambar canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+#gambar-kubus-hubungan,
+#gambar-balok-hubungan,
+#gambar-kubus-prisma,
+#gambar-prisma,
+#gambar-kubus-limas,
+#gambar-limas,
+#gambar-kubus-tabung,
+#gambar-tabung,
+#gambar-kubus-bola,
+#gambar-bola {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.rumus-box {
+    background: #F1F8FC;
+    border-left: 4px solid #5B8EAD;
+    padding: 12px 18px;
+    margin: 12px 0 20px;
+    border-radius: 8px;
+}
+
+.rumus-box p {
+    margin: 8px 0;
+    font-weight: 500;
+}
+
+
+/* =====================================
+   RESPONSIVE WEBSITE KUBUS 3D
+   LAPTOP, TABLET, DAN HP
+===================================== */
+
+/* Mencegah elemen melebar dari layar */
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* =====================================
+   TABLET DAN HP
+===================================== */
+
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        overflow-x: hidden;
+    }
+
+    /* MENU NAVIGASI */
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .sidebar h2 {
+        grid-column: 1 / -1;
+        margin-bottom: 8px;
+        font-size: 20px;
+    }
+
+    .menu {
+        width: 100%;
+        min-width: 0;
+        margin: 0;
+        padding: 12px 7px;
+        font-size: 12px;
+        line-height: 1.4;
+        text-align: center;
+        overflow-wrap: break-word;
+    }
+
+    /* AREA KONTEN */
+    .main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 14px;
+        overflow-x: hidden;
+    }
+
+    #content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    h1 {
+        font-size: 23px;
+        line-height: 1.3;
+        overflow-wrap: break-word;
+    }
+
+    h2 {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+
+    h3 {
+        font-size: 17px;
+        line-height: 1.4;
+    }
+
+    p {
+        font-size: 14px;
+        line-height: 1.7;
+        overflow-wrap: break-word;
+    }
+
+    .welcome {
+        width: 100%;
+        max-width: 100%;
+        padding: 18px;
+        margin-bottom: 16px;
+        overflow-wrap: break-word;
+    }
+
+    /* GRID DAN KARTU */
+    .jenis-grid,
+    .perbandingan-gambar {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .contoh-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .contoh-card {
+        width: 100%;
+        min-width: 0;
+        padding: 14px;
+    }
+
+    /* TOMBOL */
+    button {
+        max-width: 100%;
+        min-height: 42px;
+        font-size: 13px;
+        overflow-wrap: break-word;
+    }
+
+    .kontrol-putaran,
+    .tombol-jaring {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* =================================
+       AREA VISUALISASI 3D
+    ================================= */
+
+    #kubus-3d,
+    #jaring-kubus-3d,
+    #kubus-rumus-3d,
+    #animasi-luas-kubus,
+    #animasi-volume-kubus,
+    #diagonal-sisi-3d,
+    #diagonal-ruang-3d {
+        display: block;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        height: 300px;
+        min-height: 280px;
+        margin: 15px auto;
+        padding: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    /* Canvas mengikuti ukuran wadah */
+    #kubus-3d canvas,
+    #jaring-kubus-3d canvas,
+    #kubus-rumus-3d canvas,
+    #animasi-luas-kubus canvas,
+    #animasi-volume-kubus canvas,
+    #diagonal-sisi-3d canvas,
+    #diagonal-ruang-3d canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100%;
+        touch-action: none;
+    }
+
+    /* RUMUS DAN KALKULATOR */
+    .rumus-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 16px;
+        overflow-wrap: break-word;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+        font-size: 16px;
+    }
+
+    /* TABEL */
+    table {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    /* KARTU DAN KONTEN LAIN */
+    .welcome,
+    .contoh-card,
+    .rumus-box {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* =====================================
+   HP DENGAN LAYAR KECIL
+===================================== */
+
+@media screen and (max-width: 480px) {
+
+    .sidebar {
+        padding: 10px;
+        gap: 7px;
+    }
+
+    .menu {
+        padding: 10px 5px;
+        font-size: 11px;
+    }
+
+    .main {
+        padding: 10px;
+    }
+
+    .welcome {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 21px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    .contoh-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contoh-card {
+        padding: 12px;
+    }
+
+    /* Kubus 3D tetap memiliki ruang yang cukup */
+    #kubus-3d,
+    #jaring-kubus-3d,
+    #kubus-rumus-3d,
+    #animasi-luas-kubus,
+    #animasi-volume-kubus,
+    #diagonal-sisi-3d,
+    #diagonal-ruang-3d {
+        height: 280px;
+        min-height: 260px;
+    }
+
+    .kontrol-putaran button,
+    .tombol-jaring button {
+        flex: 1 1 130px;
+    }
+}
+
+
+/* RESPONSIVE NAVIGASI HP */
+@media screen and (max-width: 768px) {
+
+    .sidebar {
+        width: 100%;
+        padding: 12px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sidebar h2 {
+        text-align: left;
+        margin-bottom: 12px;
+        font-size: 19px;
+    }
+
+    .sidebar .menu {
+        display: inline-flex;
+        width: auto;
+        min-width: max-content;
+        padding: 10px 14px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        font-size: 12px;
+        white-space: nowrap;
+        border-radius: 20px;
+    }
+
+    .main {
+        padding: 16px;
+        width: 100%;
+    }
+}
+/* Mencegah halaman ikut bergeser saat kubus diputar */
+canvas {
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.info-bidang-diagonal {
+    margin-top: 25px;
+    padding: 22px;
+    background: #F1F8FC;
+    border-radius: 15px;
+}
+
+.info-bidang-diagonal h2 {
+    color: #34566F;
+    margin-bottom: 18px;
+}
+
+.info-item {
+    background: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    border-left: 5px solid #E58B55;
+}
+
+.info-item h3 {
+    color: #527D9B;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.info-item p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+.pilihan-bidang {
+    margin-top: 25px;
+    padding: 22px;
+    background: #F1F8FC;
+    border-radius: 15px;
+}
+
+.pilihan-bidang h2 {
+    color: #34566F;
+    margin-bottom: 10px;
+}
+
+.pilihan-bidang p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.tombol-bidang {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tombol-bidang button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #B9D9EC;
+    color: #34566F;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tombol-bidang button:hover {
+    background: #527D9B;
+    color: white;
+}
+.info-variasi-jaring {
+    margin-top: 25px;
+    padding: 22px;
+    background: #F1F8FC;
+    border-radius: 15px;
+    border-left: 5px solid #E58B55;
+}
+
+.info-variasi-jaring h2 {
+    color: #34566F;
+    margin-bottom: 12px;
+}
+
+.info-variasi-jaring p {
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+/* Tampilan variasi jaring-jaring kubus */
+.variasi-jaring {
+    margin-top: 25px;
+    padding: 22px;
+    background: #F1F8FC;
+    border-radius: 15px;
+}
+
+.daftar-variasi {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.variasi-item {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.variasi-item h3 {
+    color: #527D9B;
+    margin-bottom: 18px;
+}
+
+.jaring-mini {
+    display: grid;
+    grid-template-columns: repeat(4, 35px);
+    grid-template-rows: repeat(3, 35px);
+    justify-content: center;
+    gap: 2px;
+}
+
+.jaring-mini span {
+    display: block;
+    background: #B9D9EC;
+    border: 1px solid #527D9B;
+    box-sizing: border-box;
+}
+
+/* Variasi 1 */
+.variasi-1 span:nth-child(1) { grid-area: 1 / 2; }
+.variasi-1 span:nth-child(2) { grid-area: 2 / 1; }
+.variasi-1 span:nth-child(3) { grid-area: 2 / 2; }
+.variasi-1 span:nth-child(4) { grid-area: 2 / 3; }
+.variasi-1 span:nth-child(5) { grid-area: 2 / 4; }
+.variasi-1 span:nth-child(6) { grid-area: 3 / 2; }
+
+/* Variasi 2 */
+.variasi-2 span:nth-child(1) { grid-area: 1 / 1; }
+.variasi-2 span:nth-child(2) { grid-area: 2 / 1; }
+.variasi-2 span:nth-child(3) { grid-area: 2 / 2; }
+.variasi-2 span:nth-child(4) { grid-area: 2 / 3; }
+.variasi-2 span:nth-child(5) { grid-area: 2 / 4; }
+.variasi-2 span:nth-child(6) { grid-area: 3 / 3; }
+
+/* Variasi 3 */
+.variasi-3 span:nth-child(1) { grid-area: 1 / 2; }
+.variasi-3 span:nth-child(2) { grid-area: 2 / 1; }
+.variasi-3 span:nth-child(3) { grid-area: 2 / 2; }
+.variasi-3 span:nth-child(4) { grid-area: 2 / 3; }
+.variasi-3 span:nth-child(5) { grid-area: 2 / 4; }
+.variasi-3 span:nth-child(6) { grid-area: 3 / 4; }
+
+/* Tampilan HP */
+@media (max-width: 600px) {
+    .daftar-variasi {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <h2>Belajar Kubus 3D</h2>
+
+            <button class="menu active">Beranda</button>
+            <button class="menu">Pengenalan Bangun Ruang</button>
+            <button class="menu">Mengenal Kubus</button>
+            <button class="menu">Unsur-unsur Kubus</button>
+            <button class="menu">Ciri-ciri Kubus</button>
+            <button class="menu">Diagonal Kubus</button>
+            <button class="menu">Bidang Diagonal Kubus</button>
+            <button class="menu">Jaring-jaring Kubus</button>
+            <button class="menu">Rumus & Kalkulator Kubus</button>
+            <button class="menu">Hubungan Antarunsur Kubus</button>
+            <button class="menu">Latihan Soal</button>
+
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main">
+          <div id="content">
+    <h1>Selamat Datang di Dunia Kubus 3D!</h1>
+
+    <div class="welcome">
+        <h2>Belajar Kubus Jadi Lebih Menyenangkan</h2>
+
+        <p>
+            Melalui media pembelajaran ini, kamu akan
+            mengenal bangun ruang kubus secara lebih dekat.
+            Kamu dapat mempelajari pengertian, unsur-unsur,
+            ciri-ciri, diagonal, hingga jaring-jaring kubus.
+        </p>
+
+        <p>
+            Tidak hanya membaca materi, kamu juga dapat
+            melihat dan memutar model kubus 3D secara
+            interaktif untuk memahami bentuk dan bagian-bagiannya.
+        </p>
+        <button class="btn-mulai" onclick="document.querySelectorAll('.menu')[1].click()">
+    Mulai Belajar →
+</button>
+    </div>
+</div>
+        </main>
+
+    </div>
+<script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+    
+    
+    function buatKubusRumus3D() {
+    const area = document.getElementById("kubus-rumus-3d");
+
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(14, 11, 15);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const kubus = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({
+            color: "#B9D8EA"
+        })
+    );
+
+    scene.add(kubus);
+    let putarOtomatis = false;
+
+document.getElementById("btn-putar-otomatis")
+    .addEventListener("click", function() {
+        putarOtomatis = true;
+    });
+
+document.getElementById("btn-berhenti")
+    .addEventListener("click", function() {
+        putarOtomatis = false;
+    });
+    const slider = document.getElementById("slider-rusuk");
+const nilaiRusuk = document.getElementById("nilai-rusuk");
+
+const hasilLuas = document.getElementById("hasil-luas");
+const hasilVolume = document.getElementById("hasil-volume");
+
+slider.addEventListener("input", function() {
+    const nilai = Number(slider.value);
+
+    kubus.scale.set(nilai / 2, nilai / 2, nilai / 2);
+
+    nilaiRusuk.textContent = nilai;
+
+    hasilLuas.textContent = 6 * nilai * nilai;
+    hasilVolume.textContent = nilai * nilai * nilai;
+});
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(kubus.geometry),
+        new THREE.LineBasicMaterial({
+            color: "#5B8EAD"
+        })
+    );
+
+    kubus.add(garis);
+    let sedangDiputar = false;
+let posisiX = 0;
+let posisiY = 0;
+
+renderer.domElement.style.cursor = "grab";
+
+renderer.domElement.addEventListener("pointerdown", (event) => {
+    sedangDiputar = true;
+    posisiX = event.clientX;
+    posisiY = event.clientY;
+    renderer.domElement.style.cursor = "grabbing";
+});
+
+renderer.domElement.addEventListener("pointermove", (event) => {
+    if (!sedangDiputar) return;
+
+    const perubahanX = event.clientX - posisiX;
+    const perubahanY = event.clientY - posisiY;
+
+    kubus.rotation.y += perubahanX * 0.01;
+    kubus.rotation.x += perubahanY * 0.01;
+
+    posisiX = event.clientX;
+    posisiY = event.clientY;
+});
+
+window.addEventListener("pointerup", () => {
+    sedangDiputar = false;
+    renderer.domElement.style.cursor = "grab";
+});
+
+    function animate() {
+    requestAnimationFrame(animate);
+
+    if (putarOtomatis) {
+        kubus.rotation.y += 0.005;
+        kubus.rotation.x += 0.003;
+    }
+
+    renderer.render(scene, camera);
+}
+
+animate();
+}
+function buatPerbandinganKubusBalok() {
+
+    function buatModel(areaId, ukuran) {
+        const area = document.getElementById(areaId);
+
+        if (!area) return;
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color("#F1F8FC");
+
+        const camera = new THREE.PerspectiveCamera(
+            45,
+            area.clientWidth / area.clientHeight,
+            0.1,
+            100
+        );
+
+        camera.position.set(4, 3, 5);
+        camera.lookAt(0, 0, 0);
+
+        const renderer = new THREE.WebGLRenderer({
+            antialias: true
+        });
+
+        renderer.setSize(area.clientWidth, area.clientHeight);
+        renderer.setPixelRatio(
+            Math.min(window.devicePixelRatio, 2)
+        );
+
+        area.innerHTML = "";
+        area.appendChild(renderer.domElement);
+
+        const bentuk = new THREE.Mesh(
+            new THREE.BoxGeometry(
+                ukuran[0],
+                ukuran[1],
+                ukuran[2]
+            ),
+            new THREE.MeshBasicMaterial({
+                color: "#B9D8EA"
+            })
+        );
+
+        scene.add(bentuk);
+
+        const garis = new THREE.LineSegments(
+            new THREE.EdgesGeometry(bentuk.geometry),
+            new THREE.LineBasicMaterial({
+                color: "#5B8EAD"
+            })
+        );
+
+        bentuk.add(garis);
+
+        let sedangDiputar = false;
+        let posisiX = 0;
+        let posisiY = 0;
+
+        renderer.domElement.style.cursor = "grab";
+
+        renderer.domElement.addEventListener(
+            "pointerdown", (event) => {
+                sedangDiputar = true;
+                posisiX = event.clientX;
+                posisiY = event.clientY;
+                renderer.domElement.style.cursor = "grabbing";
+            }
+        );
+
+        renderer.domElement.addEventListener(
+            "pointermove", (event) => {
+                if (!sedangDiputar) return;
+
+                const perubahanX = event.clientX - posisiX;
+                const perubahanY = event.clientY - posisiY;
+
+                bentuk.rotation.y += perubahanX * 0.01;
+                bentuk.rotation.x += perubahanY * 0.01;
+
+                posisiX = event.clientX;
+                posisiY = event.clientY;
+            }
+        );
+
+        window.addEventListener("pointerup", () => {
+            sedangDiputar = false;
+            renderer.domElement.style.cursor = "grab";
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    }
+
+    buatModel("gambar-kubus-hubungan", [2, 2, 2]);
+    buatModel("gambar-balok-hubungan", [3, 2, 1.5]);
+}
+function buatLimas3D() {
+    const area = document.getElementById("gambar-limas");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45, area.clientWidth / area.clientHeight, 0.1, 100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0.3, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.ConeGeometry(1.5, 2.5, 4);
+    const limas = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    limas.rotation.y = Math.PI / 4;
+    scene.add(limas);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        new THREE.LineBasicMaterial({ color: "#5B8EAD" })
+    );
+
+    limas.add(garis);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatTabung3D() {
+    function buatBola3D() {
+    const area = document.getElementById("gambar-bola");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.SphereGeometry(1.3, 32, 24);
+
+    const bola = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    scene.add(bola);
+
+    const garis = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({
+            color: "#5B8EAD",
+            wireframe: true,
+            transparent: true,
+            opacity: 0.3
+        })
+    );
+
+    bola.add(garis);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+    const area = document.getElementById("gambar-tabung");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.CylinderGeometry(1.2, 1.2, 2.5, 32);
+
+    const tabung = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    scene.add(tabung);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        new THREE.LineBasicMaterial({ color: "#5B8EAD" })
+    );
+
+    tabung.add(garis);
+
+    let sedangDiputar = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.cursor = "grab";
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+        sedangDiputar = true;
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+        if (!sedangDiputar) return;
+
+        tabung.rotation.y += (event.clientX - posisiX) * 0.01;
+        tabung.rotation.x += (event.clientY - posisiY) * 0.01;
+
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    window.addEventListener("pointerup", () => {
+        sedangDiputar = false;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatBola3D() {
+    const area = document.getElementById("gambar-bola");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.SphereGeometry(1.3, 32, 24);
+
+    const bola = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    scene.add(bola);
+
+    const garisBola = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({
+            color: "#5B8EAD",
+            wireframe: true,
+            transparent: true,
+            opacity: 0.35
+        })
+    );
+
+    garisBola.scale.set(1.002, 1.002, 1.002);
+    scene.add(garisBola);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatKubusPembandingPrisma() {
+    const area = document.getElementById("gambar-kubus-prisma");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.BoxGeometry(2, 2, 2);
+
+    const kubus = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    scene.add(kubus);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        new THREE.LineBasicMaterial({ color: "#5B8EAD" })
+    );
+
+    kubus.add(garis);
+
+    let sedangDiputar = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.cursor = "grab";
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+        sedangDiputar = true;
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+        if (!sedangDiputar) return;
+
+        kubus.rotation.y += (event.clientX - posisiX) * 0.01;
+        kubus.rotation.x += (event.clientY - posisiY) * 0.01;
+
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    window.addEventListener("pointerup", () => {
+        sedangDiputar = false;
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatKubusPembanding(areaId) {
+    const area = document.getElementById(areaId);
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.BoxGeometry(2, 2, 2);
+
+    const kubus = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({ color: "#B9D8EA" })
+    );
+
+    scene.add(kubus);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        new THREE.LineBasicMaterial({ color: "#5B8EAD" })
+    );
+
+    kubus.add(garis);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatPerbandinganPrisma() {
+    const area = document.getElementById("gambar-prisma");
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const geometri = new THREE.CylinderGeometry(
+        1.2, 1.2, 2.5, 3
+    );
+
+    const prisma = new THREE.Mesh(
+        geometri,
+        new THREE.MeshBasicMaterial({
+            color: "#B9D8EA"
+        })
+    );
+
+    scene.add(prisma);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        new THREE.LineBasicMaterial({
+            color: "#5B8EAD"
+        })
+    );
+
+    prisma.add(garis);
+
+    let sedangDiputar = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.cursor = "grab";
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+        sedangDiputar = true;
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+        renderer.domElement.style.cursor = "grabbing";
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+        if (!sedangDiputar) return;
+
+        prisma.rotation.y += (event.clientX - posisiX) * 0.01;
+        prisma.rotation.x += (event.clientY - posisiY) * 0.01;
+
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    window.addEventListener("pointerup", () => {
+        sedangDiputar = false;
+        renderer.domElement.style.cursor = "grab";
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+       animate();
+}
+
+window.buatPerbandinganPrisma = buatPerbandinganPrisma;
+
+const menuButtons = document.querySelectorAll(".menu");
+const content = document.getElementById("content");
+function buatKubus3D() 
+{
+    const area = document.getElementById("kubus-rumus-3d");
+
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+area.innerHTML = "";
+area.appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+
+    const material = new THREE.MeshBasicMaterial({
+    color: "#C9E2EF"
+});
+
+    const kubus = new THREE.Mesh(geometry, material);
+
+  
+scene.add(kubus);
+
+// Posisi 8 titik sudut kubus
+const titikKubus = [
+    ["A", -1,  1,  1],
+    ["B",  1,  1,  1],
+    ["C",  1, -1,  1],
+    ["D", -1, -1,  1],
+    ["E", -1,  1, -1],
+    ["F",  1,  1, -1],
+    ["G",  1, -1, -1],
+    ["H", -1, -1, -1]
+];
+
+// Membuat bulatan dan huruf pada setiap titik sudut
+titikKubus.forEach(([huruf, x, y, z]) => {
+
+    // Membuat bulatan titik sudut
+    const bentukTitik = new THREE.SphereGeometry(0.07, 20, 20);
+
+    const warnaTitik = new THREE.MeshBasicMaterial({
+        color: "#35566F",
+        depthTest: false
+    });
+
+    const titik = new THREE.Mesh(bentukTitik, warnaTitik);
+    titik.position.set(x, y, z);
+    titik.renderOrder = 5;
+    kubus.add(titik);
+
+    // Membuat huruf menggunakan canvas
+    const canvas = document.createElement("canvas");
+    canvas.width = 128;
+    canvas.height = 128;
+
+    const context = canvas.getContext("2d");
+
+    context.fillStyle = "#35566F";
+    context.font = "bold 90px Arial";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(huruf, 64, 64);
+
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const bahanHuruf = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthTest: false
+    });
+
+    const label = new THREE.Sprite(bahanHuruf);
+
+    label.position.set(x * 1.25, y * 1.25, z * 1.25);
+    label.scale.set(0.45, 0.45, 1);
+    label.renderOrder = 10;
+
+    kubus.add(label);
+});
+
+    let sedangDiputar = false;
+let posisiX = 0;
+let posisiY = 0;
+
+renderer.domElement.style.cursor = "grab";
+
+renderer.domElement.addEventListener("pointerdown", (event) => {
+    sedangDiputar = true;
+    posisiX = event.clientX;
+    posisiY = event.clientY;
+    renderer.domElement.style.cursor = "grabbing";
+});
+
+renderer.domElement.addEventListener("pointermove", (event) => {
+    if (!sedangDiputar) return;
+
+    const perubahanX = event.clientX - posisiX;
+    const perubahanY = event.clientY - posisiY;
+
+    kubus.rotation.y += perubahanX * 0.01;
+    kubus.rotation.x += perubahanY * 0.01;
+
+    posisiX = event.clientX;
+    posisiY = event.clientY;
+});
+
+window.addEventListener("pointerup", () => {
+    sedangDiputar = false;
+    renderer.domElement.style.cursor = "grab";
+});
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
+
+function buatJaringKubus3D() {
+    const area = document.getElementById("jaring-kubus-3d");
+
+    if (!area) return;
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(5, 4, 6);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.innerHTML = "";
+    area.appendChild(renderer.domElement);
+
+    const material = new THREE.MeshBasicMaterial({
+        color: "#B9D8EA",
+        side: THREE.DoubleSide
+    });
+    const garisMaterial = new THREE.LineBasicMaterial({
+    color: "#5B8EAD",
+    linewidth: 2
+});
+
+    const ukuran = 2;
+
+// Membuat sisi tengah
+function buatEngsel(parent, posisi, posisiPersegi) {
+    const pivot = new THREE.Group();
+
+    pivot.position.set(...posisi);
+    parent.add(pivot);
+
+    const geometri = new THREE.PlaneGeometry(ukuran, ukuran);
+
+    const persegi = new THREE.Mesh(
+        geometri,
+        material
+    );
+
+    persegi.position.set(...posisiPersegi);
+    pivot.add(persegi);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(geometri),
+        garisMaterial
+    );
+
+    garis.position.copy(persegi.position);
+    garis.position.z += 0.02;
+
+    pivot.add(garis);
+
+    return pivot;
+}
+// Sisi kiri
+const kiri = buatEngsel(
+    scene, [-1, 0, 0], [-1, 0, 0]
+);
+
+// Sisi kanan
+const kanan = buatEngsel(
+    scene, [1, 0, 0], [1, 0, 0]
+);
+
+// Sisi atas
+const atas = buatEngsel(
+    scene, [0, 1, 0], [0, 1, 0]
+);
+
+// Sisi bawah
+const bawah = buatEngsel(
+    scene, [0, -1, 0], [0, -1, 0]
+);
+
+// Sisi paling kanan
+const ujung = buatEngsel(
+    kanan, [2, 0, 0], [1, 0, 0]
+);
+let targetLipat = false;
+
+function bukaKubus3D() {
+    targetLipat = false;
+}
+
+function lipatKubus3D() {
+    targetLipat = true;
+}
+
+document.getElementById("btn-buka-kubus")
+    .addEventListener("click", bukaKubus3D);
+
+document.getElementById("btn-lipat-kubus")
+    .addEventListener("click", lipatKubus3D);
+
+function gerakkanSudut(nilaiSekarang, nilaiTujuan) {
+    return nilaiSekarang + (nilaiTujuan - nilaiSekarang) * 0.05;
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    const kecepatan = targetLipat ? 1 : 0;
+
+    kiri.rotation.y = gerakkanSudut(
+        kiri.rotation.y, kecepatan * Math.PI / 2
+    );
+
+    kanan.rotation.y = gerakkanSudut(
+        kanan.rotation.y, -kecepatan * Math.PI / 2
+    );
+
+    atas.rotation.x = gerakkanSudut(
+        atas.rotation.x, kecepatan * Math.PI / 2
+    );
+
+    bawah.rotation.x = gerakkanSudut(
+        bawah.rotation.x, -kecepatan * Math.PI / 2
+    );
+
+    ujung.rotation.y = gerakkanSudut(
+        ujung.rotation.y, -kecepatan * Math.PI / 2
+    );
+
+    renderer.render(scene, camera);
+}
+
+animate();
+}
+
+
+menuButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        menuButtons.forEach((menu) => {
+            menu.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+       const namaHalaman = button.textContent.trim();
+
+
+if (namaHalaman === "Pengenalan Bangun Ruang") {
+    content.innerHTML = `
+        <h1>Pengenalan Bangun Ruang</h1>
+
+        <div class="welcome">
+            <h2>Apa Itu Bangun Ruang?</h2>
+
+            <p>
+                Bangun ruang adalah bangun tiga dimensi
+                yang memiliki panjang, lebar, dan tinggi.
+                Bangun ruang juga memiliki volume atau isi
+                sehingga dapat menempati suatu ruang.
+            </p>
+
+            <p>
+                Dalam kehidupan sehari-hari, kita dapat
+                menemukan berbagai benda yang berbentuk
+                bangun ruang, seperti kotak, bola, kaleng,
+                dan benda lainnya.
+            </p>
+            <h2>Contoh Bangun Ruang</h2>
+
+<p>
+    Berikut beberapa contoh bangun ruang
+    yang sering kita jumpai dalam kehidupan sehari-hari.
+</p>
+
+<div class="contoh-grid">
+
+    <div class="contoh-card">
+        <div class="emoji">🧊</div>
+        <h3>Kubus</h3>
+        <p>Dadu dan rubik</p>
+    </div>
+
+    <div class="contoh-card">
+        <div class="emoji">📦</div>
+        <h3>Balok</h3>
+        <p>Kotak sepatu dan lemari</p>
+    </div>
+
+    <div class="contoh-card">
+        <div class="emoji">🥫</div>
+        <h3>Tabung</h3>
+        <p>Kaleng minuman</p>
+    </div>
+
+    <div class="contoh-card">
+        <div class="emoji">⚽</div>
+        <h3>Bola</h3>
+        <p>Bola sepak dan bola basket</p>
+    </div>
+
+    <div class="contoh-card">
+        <div class="emoji">🍦</div>
+        <h3>Kerucut</h3>
+        <p>Es krim dan topi ulang tahun</p>
+    </div>
+
+</div>
+<h2>Jenis-Jenis Bangun Ruang</h2>
+
+<p>
+    Berdasarkan bentuk sisi-sisinya, bangun ruang
+    dapat dibedakan menjadi dua jenis.
+</p>
+
+<div class="jenis-grid">
+
+    <div class="jenis-card">
+        <div class="emoji">🧊</div>
+        <h3>Bangun Ruang Sisi Datar</h3>
+        <p>
+            Bangun ruang yang seluruh sisinya
+            berbentuk bidang datar.
+        </p>
+        <p>
+            Contoh: kubus, balok, prisma, dan limas.
+        </p>
+    </div>
+
+    <div class="jenis-card">
+        <div class="emoji">⚽</div>
+        <h3>Bangun Ruang Sisi Lengkung</h3>
+        <p>
+            Bangun ruang yang memiliki setidaknya
+            satu sisi berbentuk lengkung.
+        </p>
+        <p>
+            Contoh: tabung, kerucut, dan bola.
+        </p>
+    </div>
+
+</div>
+        </div>
+    `;
+} else if (namaHalaman === "Mengenal Kubus") {
+    content.innerHTML = `
+        <h1>Mengenal Kubus</h1>
+
+        <div class="welcome">
+            <h2>Apa Itu Kubus? 🧊</h2>
+
+            <p>
+                Kubus adalah bangun ruang tiga dimensi
+                yang dibatasi oleh enam sisi berbentuk
+                persegi yang sama besar.
+            </p>
+
+            <p>
+                Setiap rusuk kubus memiliki panjang yang sama,
+                dan seluruh sudutnya merupakan sudut siku-siku.
+            </p>
+        </div>
+
+        <div class="welcome">
+            <h2>Mari Mengenal Bentuk Kubus!</h2>
+
+            <div id="kubus-3d"></div>
+
+            <p style="text-align:center;">
+                Kubus memiliki bentuk yang sama pada setiap sisinya.
+                Coba perhatikan bentuk kubus di atas!
+            </p>
+        </div>
+
+        <div class="welcome">
+            <h2>Kubus dalam Kehidupan Sehari-hari</h2>
+
+            <div class="contoh-grid">
+                <div class="contoh-card">
+                    <div class="emoji">🎲</div>
+                    <h3>Dadu</h3>
+                    <p>Memiliki enam sisi berbentuk persegi.</p>
+                </div>
+
+                <div class="contoh-card">
+                    <div class="emoji">🧊</div>
+                    <h3>Es Batu</h3>
+                    <p>Dapat memiliki bentuk kubus.</p>
+                </div>
+
+                <div class="contoh-card">
+                    <div class="emoji">🟩</div>
+                    <h3>Rubik</h3>
+                    <p>Memiliki bentuk dasar kubus.</p>
+                </div>
+            </div>
+        </div>
+    `;
+    buatKubusMengenal();
+} else if (namaHalaman === "Unsur-unsur Kubus") {
+    content.innerHTML = `
+        <h1>Unsur-unsur Kubus</h1>
+
+        <div class="welcome">
+            <h2>Mengenal Bagian-bagian Kubus 🧊</h2>
+            <p>
+                Kubus memiliki beberapa unsur pembentuk,
+                yaitu sisi, rusuk, dan titik sudut.
+                Selain itu, terdapat diagonal sisi,
+                diagonal ruang, dan bidang diagonal.
+            </p>
+        </div>
+
+        <div class="contoh-grid">
+
+            <div class="contoh-card">
+                <div class="emoji">🟦</div>
+                <h3>Sisi</h3>
+                <p>6 sisi berbentuk persegi yang sama besar.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">📏</div>
+                <h3>Rusuk</h3>
+                <p>12 rusuk dengan panjang yang sama.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">🔵</div>
+                <h3>Titik Sudut</h3>
+                <p>8 titik sudut tempat bertemunya tiga rusuk.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">📐</div>
+                <h3>Diagonal Sisi</h3>
+                <p>12 diagonal yang menghubungkan dua titik sudut berhadapan pada satu sisi.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">✨</div>
+                <h3>Diagonal Ruang</h3>
+                <p>4 diagonal yang menghubungkan dua titik sudut berhadapan melalui bagian dalam kubus.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">🔷</div>
+                <h3>Bidang Diagonal</h3>
+                <p>6 bidang berbentuk persegi panjang yang membelah kubus.</p>
+            </div>
+
+        </div>
+    `;
+
+    } else if (namaHalaman === "Ciri-ciri Kubus") {
+    content.innerHTML = `
+        <h1>Ciri-ciri Kubus</h1>
+
+        <div class="welcome">
+            <h2>Apa yang Membuat Kubus Istimewa? 🧊</h2>
+            <p>
+                Kubus memiliki bentuk dan ukuran sisi yang sama.
+                Berikut beberapa ciri khas yang membedakan kubus
+                dari bangun ruang lainnya.
+            </p>
+        </div>
+
+        <div class="contoh-grid">
+
+            <div class="contoh-card">
+                <div class="emoji">🟦</div>
+                <h3>6 Sisi Sama Besar</h3>
+                <p>Semua sisinya berbentuk persegi yang kongruen.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">📏</div>
+                <h3>12 Rusuk Sama Panjang</h3>
+                <p>Seluruh rusuk kubus memiliki ukuran yang sama.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">🔵</div>
+                <h3>8 Titik Sudut</h3>
+                <p>Kubus memiliki delapan titik sudut.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">📐</div>
+                <h3>Sudut Siku-siku</h3>
+                <p>Setiap sudut pada sisi kubus besarnya 90°.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">🔷</div>
+                <h3>Diagonal Sama Panjang</h3>
+                <p>Diagonal sisi memiliki panjang yang sama, begitu juga seluruh diagonal ruang.</p>
+            </div>
+
+            <div class="contoh-card">
+                <div class="emoji">📦</div>
+                <h3>Memiliki Volume</h3>
+                <p>Kubus merupakan bangun ruang tiga dimensi yang memiliki isi.</p>
+            </div>
+
+        </div>
+    `;
+
+
+} else if (namaHalaman === "Diagonal Kubus") {
+    content.innerHTML = `
+        <h1>Diagonal Kubus</h1>
+
+        <div class="welcome">
+            <h2>Mengenal Diagonal pada Kubus 📐</h2>
+            <p>
+                Kubus memiliki diagonal sisi dan diagonal ruang.
+                Keduanya memiliki letak dan panjang yang berbeda.
+                Mari kita pelajari melalui model 3D berikut!
+            </p>
+        </div>
+
+        <div class="contoh-grid">
+            <div class="contoh-card">
+                <h2>Diagonal Sisi</h2>
+                <p>
+                    Diagonal sisi adalah garis yang menghubungkan
+                    dua titik sudut yang berhadapan pada satu sisi kubus.
+                </p>
+
+                <div id="diagonal-sisi-3d"></div>
+
+                <p class="penjelasan-diagonal">
+                    Setiap sisi kubus memiliki 2 diagonal.
+                    Karena kubus memiliki 6 sisi, jumlah seluruh
+                    diagonal sisinya adalah 6 × 2 = 12.
+                </p>
+
+                <div class="penjelasan-diagonal">
+                    <strong>Daftar 12 Diagonal Sisi Kubus</strong>
+                    <p>Sisi depan: AC dan BD</p>
+                    <p>Sisi belakang: EG dan FH</p>
+                    <p>Sisi atas: AF dan BE</p>
+                    <p>Sisi bawah: DG dan CH</p>
+                    <p>Sisi kiri: AH dan DE</p>
+                    <p>Sisi kanan: BG dan CF</p>
+                    <h3>Total: 6 × 2 = 12 diagonal sisi</h3>
+                </div>
+            </div>
+
+            <div class="contoh-card">
+                <h2>Diagonal Ruang</h2>
+                <p>
+                    Diagonal ruang adalah garis yang menghubungkan
+                    dua titik sudut yang berhadapan melalui bagian dalam kubus.
+                </p>
+
+                <div id="diagonal-ruang-3d"></div>
+
+                <p class="penjelasan-diagonal">
+                    Contoh diagonal ruang adalah AG.
+                    Kubus memiliki 4 diagonal ruang.
+                </p>
+            </div>
+        </div>
+    `;
+
+    requestAnimationFrame(() => {
+        buatDiagonalSisi();
+        buatDiagonalRuang();
+    });
+
+} else if (namaHalaman === "Bidang Diagonal Kubus") {
+    content.innerHTML = `
+        <h1>Bidang Diagonal Kubus</h1>
+
+        <p>
+            Bidang diagonal adalah bidang yang dibatasi oleh dua rusuk
+            yang berhadapan dan dua diagonal sisi yang sejajar.
+        </p>
+
+        <div id="bidang-diagonal-3d"
+             style="
+                width: 100%;
+                height: 450px;
+                background: #F1F8FC;
+                border-radius: 15px;
+                overflow: hidden;
+             ">
+        </div>
+        <div class="pilihan-bidang">
+    <h2>Pilih Bidang Diagonal</h2>
+
+    <p>Klik salah satu pilihan untuk melihat bidang diagonal lainnya.</p>
+
+    <div class="tombol-bidang">
+    <button onclick="ubahBidangDiagonal('ACGE')">ACGE</button>
+    <button onclick="ubahBidangDiagonal('BDHF')">BDHF</button>
+    <button onclick="ubahBidangDiagonal('ABGH')">ABGH</button>
+    <button onclick="ubahBidangDiagonal('CDEF')">CDEF</button>
+    <button onclick="ubahBidangDiagonal('ADGF')">ADGF</button>
+    <button onclick="ubahBidangDiagonal('BCEH')">BCEH</button>
+</div>
+        <div class="penjelasan-bidang-diagonal">
+    <h2>Mengenal Bidang Diagonal</h2>
+
+    <div id="isi-penjelasan-bidang">
+        <h3>Bidang Diagonal ACGE</h3>
+        <p>
+            Bidang ACGE dibatasi oleh dua diagonal sisi
+            dan dua rusuk kubus.
+        </p>
+        <ul>
+            <li><strong>AC dan GE:</strong> diagonal sisi yang sejajar.</li>
+            <li><strong>AE dan CG:</strong> rusuk yang sejajar.</li>
+        </ul>
+    </div>
+</div>
+        <div class="info-bidang-diagonal">
+    <h2>Sifat-Sifat Bidang Diagonal</h2>
+
+    <div class="info-item">
+        <h3>1. Berbentuk Persegi Panjang</h3>
+        <p>
+            Setiap bidang diagonal pada kubus berbentuk persegi panjang.
+        </p>
+    </div>
+
+    <div class="info-item">
+        <h3>2. Memiliki Dua Diagonal Sisi</h3>
+        <p>
+            Bidang diagonal dibatasi oleh dua diagonal sisi yang sejajar
+            dan sama panjang.
+        </p>
+    </div>
+
+    <div class="info-item">
+        <h3>3. Memiliki Empat Sisi</h3>
+        <p>
+            Dua sisi bidang diagonal merupakan rusuk kubus yang berhadapan.
+        </p>
+    </div>
+</div>
+
+    `;
+
+    requestAnimationFrame(() => {
+        buatBidangDiagonal();
+    });
+
+
+
+} else if(namaHalaman === "Jaring-jaring Kubus") {
+
+    content.innerHTML = `
+        <h1>Jaring-jaring Kubus</h1>
+
+        <div class="welcome">
+            <h2>Mengenal Jaring-jaring Kubus 📦</h2>
+            <p>
+                Jaring-jaring kubus adalah susunan enam persegi
+                yang dapat dilipat hingga membentuk sebuah kubus.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+    <h2>Bentuk Jaring-jaring Kubus</h2>
+<div id="jaring-kubus-3d"></div>
+    <div id="jaring-kubus">
+        <div class="persegi atas"></div>
+        <div class="persegi kiri"></div>
+        <div class="persegi tengah"></div>
+        <div class="persegi kanan"></div>
+        <div class="persegi bawah"></div>
+        <div class="persegi bawah2"></div>
+        </div>
+
+    <div class="tombol-jaring">
+    <button id="btn-buka-kubus">Buka Kubus</button>
+    <button id="btn-lipat-kubus">Lipat Kubus</button>
+</div>
+</div>
+<div class="info-variasi-jaring">
+    <h2>💡 Tahukah Kamu?</h2>
+
+    <p>
+        Jaring-jaring kubus memiliki beberapa bentuk yang berbeda.
+        Bentuk yang ditampilkan pada media pembelajaran ini
+        merupakan salah satu contoh jaring-jaring kubus.
+        Masih terdapat bentuk-bentuk lainnya yang dapat dilipat
+        sehingga membentuk sebuah kubus.
+    </p>
+
+    <p>
+        Setiap jaring-jaring harus terdiri dari enam persegi
+        yang tersusun dengan tepat agar dapat membentuk kubus
+        tanpa saling bertumpuk.
+    </p>
+</div>
+<div class="variasi-jaring">
+    <h2>Berbagai Bentuk Jaring-jaring Kubus</h2>
+    <p>
+        Berikut beberapa contoh susunan enam persegi
+        yang dapat membentuk sebuah kubus.
+    </p>
+
+    <div class="daftar-variasi">
+
+        <div class="variasi-item">
+            <h3>Variasi 1</h3>
+            <div class="jaring-mini variasi-1">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="variasi-item">
+            <h3>Variasi 2</h3>
+            <div class="jaring-mini variasi-2">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <div class="variasi-item">
+            <h3>Variasi 3</h3>
+            <div class="jaring-mini variasi-3">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+        `;
+
+
+    buatJaringKubus3D();
+
+    } else if (namaHalaman === "Hubungan Antarunsur Kubus") {
+    content.innerHTML = `
+    
+        <h1>Hubungan Kubus dengan Bangun Ruang Lainnya</h1>
+
+        <div class="welcome">
+            <h2>Apakah Kubus Berhubungan dengan Bangun Ruang Lainnya?</h2>
+            <p>
+                Kubus merupakan salah satu jenis bangun ruang sisi datar.
+                Kubus memiliki beberapa kesamaan dengan bangun ruang lainnya,
+                seperti balok dan prisma. Namun, setiap bangun ruang juga
+                memiliki ciri khas yang membedakannya.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+            <h2>1. Kubus dan Balok</h2>
+            <div class="perbandingan-gambar">
+    <div>
+        <h3>Kubus</h3>
+        <div id="gambar-kubus-hubungan"></div>
+    </div>
+
+    <div>
+        <h3>Balok</h3>
+        <div id="gambar-balok-hubungan"></div>
+    </div>
+</div>
+            <p>
+                Kubus dan balok memiliki bentuk yang hampir sama.
+                Keduanya mempunyai 6 sisi, 12 rusuk, dan 8 titik sudut.
+            </p>
+            <p>
+                Perbedaannya terletak pada bentuk dan ukuran sisinya.
+                Semua sisi kubus berbentuk persegi yang sama besar,
+                sedangkan sisi balok berbentuk persegi panjang.
+            </p>
+            <h3>Hubungannya:</h3>
+            <p>
+                Kubus dapat dianggap sebagai balok khusus yang seluruh
+                rusuknya memiliki panjang sama. Jadi, setiap kubus
+                termasuk balok, tetapi tidak semua balok merupakan kubus.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+            <h2>2. Kubus dan Prisma</h2>
+            <div class="perbandingan-gambar">
+    <div>
+        <h3>Kubus</h3>
+        <div id="gambar-kubus-prisma"></div>
+    </div>
+
+    <div>
+        <h3>Prisma</h3>
+        <div id="gambar-prisma"></div>
+    </div>
+</div>
+            <p>
+                Prisma adalah bangun ruang yang memiliki dua sisi sejajar
+                dan sama bentuk sebagai alas dan tutupnya. Sisi tegaknya
+                berbentuk persegi panjang pada prisma tegak.
+            </p>
+            <p>
+                Kubus memiliki dua sisi berhadapan berbentuk persegi
+                yang sejajar dan sama besar.
+            </p>
+            <h3>Hubungannya:</h3>
+            <p>
+                Kubus merupakan salah satu bentuk khusus prisma,
+                yaitu prisma segiempat dengan alas persegi dan tinggi
+                yang sama dengan panjang sisi alasnya.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+            <h2>3. Kubus dan Limas</h2>
+            <div class="perbandingan-gambar">
+    <div>
+        <h3>Kubus</h3>
+        <div id="gambar-kubus-limas"></div>
+    </div>
+
+    <div>
+        <h3>Limas</h3>
+        <div id="gambar-limas"></div>
+    </div>
+</div>
+            <p>
+                Kubus dan limas sama-sama termasuk bangun ruang sisi datar.
+                Keduanya tersusun dari sisi-sisi berbentuk bangun datar,
+                memiliki rusuk, dan memiliki titik sudut.
+            </p>
+            <p>
+                Perbedaannya, kubus memiliki 6 sisi berbentuk persegi,
+                sedangkan limas memiliki satu alas dan sisi-sisi tegak
+                berbentuk segitiga yang bertemu pada satu titik puncak.
+            </p>
+            <p>
+    Kubus dan limas sama-sama termasuk bangun ruang
+    sisi datar. Selain itu, sebuah kubus dapat dibagi
+    menjadi enam limas segi empat yang identik.
+</p>
+
+<h3>Pembagian Kubus Menjadi Enam Limas</h3>
+<p>
+    Setiap sisi kubus menjadi alas dari satu limas,
+    sedangkan titik puncak keenam limas bertemu
+    di titik pusat kubus.
+</p>
+
+<p>
+    Keenam limas tersebut memiliki ukuran yang sama.
+    Panjang alasnya sama dengan panjang rusuk kubus,
+    sedangkan tinggi setiap limas adalah setengah
+    dari panjang rusuk kubus.
+</p>
+
+<div class="rumus-box">
+    <p><strong>Tinggi limas:</strong> t = ½s</p>
+</div>
+
+<p>
+    Dengan demikian, volume satu limas adalah
+    seperenam dari volume kubus. Jika keenam limas
+    digabungkan kembali, bentuknya akan menjadi
+    satu kubus utuh.
+</p>
+        <div class="contoh-card">
+            <h2>4. Kubus dan Tabung</h2>
+            <div class="perbandingan-gambar">
+    <div>
+        <h3>Kubus</h3>
+        <div id="gambar-kubus-tabung"></div>
+    </div>
+
+    <div>
+        <h3>Tabung</h3>
+        <div id="gambar-tabung"></div>
+    </div>
+</div>
+            <p>
+                Kubus dan tabung sama-sama memiliki volume dan luas
+                permukaan. Keduanya juga dapat digunakan untuk
+                menggambarkan benda yang memiliki ruang di dalamnya.
+            </p>
+            <p>
+                Perbedaannya, kubus memiliki 6 sisi datar berbentuk
+                persegi, sedangkan tabung memiliki 2 sisi datar
+                berbentuk lingkaran dan 1 sisi lengkung.
+            </p>
+            <h3>Hubungannya:</h3>
+            <p>
+                <p>
+    Keduanya merupakan bangun ruang tiga dimensi,
+    tetapi termasuk kelompok yang berbeda.
+    Kubus merupakan bangun ruang sisi datar,
+    sedangkan tabung merupakan bangun ruang sisi lengkung.
+    Selain itu, tabung dapat ditempatkan di dalam kubus
+    dengan ukuran maksimal sehingga menyinggung sisi-sisi kubus.
+</p>
+
+<h3>a. Diameter Alas Tabung</h3>
+<p>
+    Diameter alas tabung sama dengan panjang rusuk kubus.
+    Oleh karena itu, jari-jari tabung adalah setengah
+    dari panjang rusuk kubus.
+</p>
+
+<div class="rumus-box">
+    <p><strong>Diameter:</strong> d = s</p>
+    <p><strong>Jari-jari:</strong> r = ½s</p>
+</div>
+
+<h3>b. Tinggi Tabung</h3>
+<p>
+    Tinggi tabung sama dengan panjang rusuk kubus karena
+    alas dan tutup tabung berada tepat pada dua sisi
+    kubus yang berhadapan.
+</p>
+
+<div class="rumus-box">
+    <p><strong>Tinggi tabung:</strong> t = s</p>
+</div>
+
+<p>
+    Dengan demikian, panjang rusuk kubus menentukan
+    diameter, jari-jari, dan tinggi tabung ketika
+    tabung berada di dalam kubus dengan ukuran maksimal.
+</p>
+        </div>
+
+        <div class="contoh-card">
+            <h2>5. Kubus dan Bola</h2>
+            <div class="perbandingan-gambar">
+    <div>
+        <h3>Kubus</h3>
+        <div id="gambar-kubus-bola"></div>
+    </div>
+
+    <div>
+        <h3>Bola</h3>
+        <div id="gambar-bola"></div>
+    </div>
+</div>
+            <p>
+                Kubus dan bola sama-sama merupakan bangun ruang
+                tiga dimensi yang memiliki volume.
+            </p>
+            <p>
+                Perbedaannya, kubus mempunyai sisi-sisi datar,
+                rusuk, dan titik sudut. Bola memiliki satu permukaan
+                lengkung dan tidak mempunyai rusuk maupun titik sudut.
+            </p>
+            <h3>Hubungannya:</h3>
+<p>
+    Keduanya sama-sama memiliki ruang, tetapi bentuk
+    permukaan dan unsur-unsurnya sangat berbeda.
+    Selain itu, kubus dan bola juga memiliki hubungan
+    ukuran berdasarkan posisi keduanya.
+</p>
+
+<h3>a. Bola di Dalam Kubus</h3>
+<p>
+    Bola dapat ditempatkan di dalam kubus hingga menyentuh
+    keenam sisi kubus. Pada posisi ini, diameter bola sama
+    dengan panjang rusuk kubus.
+</p>
+
+<div class="rumus-box">
+    <p><strong>Diameter bola:</strong> d = s</p>
+    <p><strong>Jari-jari bola:</strong> r = ½s</p>
+</div>
+
+<h3>b. Kubus di Dalam Bola</h3>
+<p>
+    Kubus juga dapat ditempatkan di dalam bola sehingga
+    kedelapan titik sudut kubus menyentuh permukaan bola.
+    Pada posisi ini, diameter bola sama dengan diagonal
+    ruang kubus.
+</p>
+
+<div class="rumus-box">
+    <p><strong>Diagonal ruang kubus:</strong> d = s√3</p>
+    <p><strong>Jari-jari bola:</strong> r = ½s√3</p>
+</div>
+
+<p>
+    Jadi, ukuran bola dapat ditentukan berdasarkan panjang
+    rusuk kubus, baik ketika bola berada di dalam kubus
+    maupun ketika kubus berada di dalam bola.
+</p>
+        </div>
+
+        <div class="welcome">
+            <h2>Kesimpulan</h2>
+            <p>
+                Kubus memiliki hubungan dengan berbagai bangun ruang
+                lainnya. Hubungan paling dekat dapat dilihat pada balok
+                dan prisma karena kubus merupakan bentuk khusus dari
+                keduanya. Sementara itu, limas, tabung, dan bola memiliki
+                ciri serta bentuk yang berbeda, tetapi semuanya termasuk
+                bangun ruang tiga dimensi.
+            </p>
+        </div>
+    `;
+        requestAnimationFrame(() => {
+    buatPerbandinganKubusBalok();
+    buatKubusPembandingPrisma();
+    window.buatPerbandinganPrisma();
+    buatLimas3D();
+    buatTabung3D();
+    buatBola3D();
+
+    buatKubusPembanding("gambar-kubus-limas");
+    buatKubusPembanding("gambar-kubus-tabung");
+    buatKubusPembanding("gambar-kubus-bola");
+});
+
+} else if (namaHalaman === "Rumus & Kalkulator Kubus") {
+    content.innerHTML = `
+        <h1>Rumus & Kalkulator Kubus</h1>
+
+        <div class="welcome">
+            <h2>Mengenal Rumus Kubus 📐</h2>
+            <p>
+                Pada halaman ini, kita akan mempelajari cara menghitung
+                luas permukaan dan volume kubus. Kamu juga dapat mencoba
+                kalkulator untuk mengetahui hasil perhitungannya.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+            <h2>Panjang Rusuk Kubus</h2>
+            <p>
+                Rusuk merupakan garis yang membatasi dua sisi pada kubus.
+                Semua rusuk kubus memiliki panjang yang sama.
+            </p>
+        </div>
+
+        <div class="contoh-card">
+            
+
+<div class="welcome">
+    <h2>Luas Permukaan Kubus</h2>
+
+    <p>
+        Luas permukaan kubus adalah jumlah luas keenam bidang
+        persegi yang membatasi kubus. Keenam bidang persegi
+        tersebut memiliki ukuran yang sama besar. Oleh karena itu,
+        luas permukaan kubus dapat ditentukan dengan menghitung
+        luas satu bidang persegi, kemudian mengalikannya dengan 6.
+    </p>
+
+    <h3>L = 6 × r²</h3>
+</div>
+
+<div id="animasi-luas-kubus"></div>
+
+<div class="kontrol-putaran">
+    <button id="btn-buka-jaring">Buka Jaring-jaring</button>
+    <button id="btn-tutup-jaring">Bentuk Kubus</button>
+</div>
+
+<div class="rumus-box">
+    <p><strong>Langkah 1: Menentukan jumlah bidang persegi</strong></p>
+    <p>Kubus memiliki 6 bidang persegi yang sama besar.</p>
+
+    <p><strong>Langkah 2: Menghitung luas satu bidang persegi</strong></p>
+    <p>Panjang = r</p>
+    <p>Lebar = r</p>
+    <p>Luas persegi = panjang × lebar</p>
+    <p>Luas persegi = r × r = r²</p>
+
+    <p><strong>Langkah 3: Menghitung luas permukaan kubus</strong></p>
+    <p>Luas permukaan = 6 × luas satu bidang persegi</p>
+    <p>Luas permukaan = 6 × r²</p>
+
+    <h3>L = 6 × r²</h3>
+</div>
+
+
+<div class="contoh-card">
+    <h2>Menemukan Rumus Volume Kubus</h2>
+
+    <p>
+        Volume menunjukkan banyaknya ruang yang dapat diisi oleh
+        suatu bangun ruang. Mari kita melihat susunan kubus satuan
+        untuk menemukan rumus volume kubus.
+    </p>
+
+    <div id="animasi-volume-kubus"></div>
+
+    <div class="rumus-box">
+    <p>Banyak kubus satuan = panjang × lebar × tinggi</p>
+    <p>V = r × r × r</p>
+    <p>V = r³</p>
+    <h3>Volume Kubus = r³</h3>
+</div>
+<p>
+    Pada animasi terlihat 3 kubus satuan pada panjang,
+    3 kubus satuan pada lebar, dan 3 kubus satuan pada tinggi.
+</p>
+<p><strong>V = 3 × 3 × 3 = 27 satuan kubik</strong></p>
+</div>
+        <div class="contoh-card">
+    <h2>Panjang Rusuk Kubus</h2>
+    <p>
+        Rusuk merupakan garis yang membatasi dua sisi pada kubus.
+        Semua rusuk kubus memiliki panjang yang sama.
+    </p>
+
+    <div id="kubus-rumus-3d"></div>
+    <div class="kontrol-rusuk">
+    <label for="slider-rusuk">
+        Panjang Rusuk:
+        <span id="nilai-rusuk">2</span> cm
+    </label>
+
+    <input
+        type="range"
+        id="slider-rusuk"
+        min="1"
+        max="10"
+        value="2"
+        step="1"
+    >
+</div>
+<div class="kontrol-putaran">
+    <button id="btn-putar-otomatis">Putar Otomatis</button>
+    <button id="btn-berhenti">Berhenti</button>
+</div>
+<div class="hasil-kalkulator">
+    <h3>Hasil Perhitungan</h3>
+
+    <p>Luas Permukaan: <span id="hasil-luas">24</span> cm²</p>
+
+    <p>Volume: <span id="hasil-volume">8</span> cm³</p>
+</div>
+    `;
+       requestAnimationFrame(() => {
+    buatKubusRumus3D();
+    buatAnimasiLuasPermukaan();
+    buatAnimasiVolumeKubus();
+});
+
+} else if (namaHalaman === "Latihan Soal") {
+    content.innerHTML = `
+        <h1>Latihan Soal Kubus 📝</h1>
+
+        <div class="welcome">
+            <h2>Uji Pemahamanmu!</h2>
+            <p>
+                Kerjakan lima soal berikut untuk menguji
+                pemahamanmu tentang unsur, ciri-ciri,
+                luas permukaan, dan volume kubus.
+            </p>
+            <p>Setiap jawaban benar mendapatkan 20 poin.</p>
+        </div>
+
+        <div class="contoh-card">
+            <h3>Soal 1</h3>
+            <p>Berapakah jumlah sisi yang dimiliki kubus?</p>
+            <label><input type="radio" name="q1" value="A"> A. 4 sisi</label><br>
+            <label><input type="radio" name="q1" value="B"> B. 6 sisi</label><br>
+            <label><input type="radio" name="q1" value="C"> C. 8 sisi</label><br>
+            <label><input type="radio" name="q1" value="D"> D. 12 sisi</label>
+            <p id="pembahasan1"></p>
+        </div>
+
+        <div class="contoh-card">
+            <h3>Soal 2</h3>
+            <p>Berapakah jumlah rusuk pada kubus?</p>
+            <label><input type="radio" name="q2" value="A"> A. 6 rusuk</label><br>
+            <label><input type="radio" name="q2" value="B"> B. 8 rusuk</label><br>
+            <label><input type="radio" name="q2" value="C"> C. 10 rusuk</label><br>
+            <label><input type="radio" name="q2" value="D"> D. 12 rusuk</label>
+            <p id="pembahasan2"></p>
+        </div>
+
+        <div class="contoh-card">
+            <h3>Soal 3</h3>
+            <p>Sebuah kubus memiliki panjang rusuk 4 cm.
+            Berapakah luas permukaannya?</p>
+            <label><input type="radio" name="q3" value="A"> A. 16 cm²</label><br>
+            <label><input type="radio" name="q3" value="B"> B. 64 cm²</label><br>
+            <label><input type="radio" name="q3" value="C"> C. 96 cm²</label><br>
+            <label><input type="radio" name="q3" value="D"> D. 128 cm²</label>
+            <p id="pembahasan3"></p>
+        </div>
+
+        <div class="contoh-card">
+            <h3>Soal 4</h3>
+            <p>Sebuah kubus memiliki panjang rusuk 5 cm.
+            Berapakah volumenya?</p>
+            <label><input type="radio" name="q4" value="A"> A. 25 cm³</label><br>
+            <label><input type="radio" name="q4" value="B"> B. 75 cm³</label><br>
+            <label><input type="radio" name="q4" value="C"> C. 100 cm³</label><br>
+            <label><input type="radio" name="q4" value="D"> D. 125 cm³</label>
+            <p id="pembahasan4"></p>
+        </div>
+
+        <div class="contoh-card">
+            <h3>Soal 5</h3>
+            <p>Rina memiliki kotak berbentuk kubus dengan
+            panjang rusuk 3 cm. Jika seluruh permukaan
+            kotak akan dilapisi kertas, berapa luas kertas
+            minimal yang dibutuhkan?</p>
+            <label><input type="radio" name="q5" value="A"> A. 9 cm²</label><br>
+            <label><input type="radio" name="q5" value="B"> B. 18 cm²</label><br>
+            <label><input type="radio" name="q5" value="C"> C. 54 cm²</label><br>
+            <label><input type="radio" name="q5" value="D"> D. 27 cm²</label>
+            <p id="pembahasan5"></p>
+        </div>
+
+        <div class="contoh-card">
+            <button id="btn-periksa-jawaban">Periksa Jawaban</button>
+            <h2 id="hasil-skor"></h2>
+            <p id="pesan-hasil"></p>
+            <button id="btn-ulangi" style="display:none;">
+                Ulangi Latihan
+            </button>
+        </div>
+    `;
+
+    const kunci = ["B", "D", "C", "D", "C"];
+
+    const pembahasan = [
+        "Kubus memiliki 6 sisi berbentuk persegi.",
+        "Kubus memiliki 12 rusuk yang sama panjang.",
+        "L = 6 × 4² = 6 × 16 = 96 cm².",
+        "V = 5³ = 5 × 5 × 5 = 125 cm³.",
+        "L = 6 × 3² = 6 × 9 = 54 cm²."
+    ];
+
+    document.getElementById("btn-periksa-jawaban")
+        .addEventListener("click", () => {
+
+        let skor = 0;
+        let terjawab = 0;
+
+        for (let i = 0; i < 5; i++) {
+            const pilihan = document.querySelector(
+                'input[name="q' + (i + 1) + '"]:checked'
+            );
+
+            const areaPembahasan = document.getElementById(
+                "pembahasan" + (i + 1)
+            );
+
+            if (!pilihan) {
+                areaPembahasan.textContent = "Belum dijawab.";
+                areaPembahasan.style.color = "#C47B38";
+                continue;
+            }
+
+            terjawab++;
+
+            if (pilihan.value === kunci[i]) {
+                skor += 20;
+                areaPembahasan.textContent =
+                    "Benar! " + pembahasan[i];
+                areaPembahasan.style.color = "#26834A";
+            } else {
+                areaPembahasan.textContent =
+                    "Belum tepat. Jawaban benar: " +
+                    kunci[i] + ". " + pembahasan[i];
+                areaPembahasan.style.color = "#C44747";
+            }
+        }
+
+        if (terjawab < 5) {
+            document.getElementById("hasil-skor").textContent =
+                "Kamu baru menjawab " + terjawab + " dari 5 soal.";
+
+            document.getElementById("pesan-hasil").textContent =
+                "Lengkapi semua soal, lalu periksa kembali jawabanmu.";
+
+            return;
+        }
+
+        document.getElementById("hasil-skor").textContent =
+            "Skor kamu: " + skor + " / 100";
+
+        document.getElementById("pesan-hasil").textContent =
+            skor === 100
+                ? "Hebat! Semua jawabanmu benar!"
+                : skor >= 60
+                ? "Bagus! Terus tingkatkan pemahamanmu!"
+                : "Tetap semangat! Pelajari kembali materi kubus, ya.";
+
+        document.getElementById("btn-ulangi").style.display =
+            "inline-block";
+    });
+
+    document.getElementById("btn-ulangi")
+        .addEventListener("click", () => {
+            document.querySelectorAll(
+                'input[type="radio"]'
+            ).forEach(input => input.checked = false);
+
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(
+                    "pembahasan" + i
+                ).textContent = "";
+            }
+
+            document.getElementById("hasil-skor").textContent = "";
+            document.getElementById("pesan-hasil").textContent = "";
+            document.getElementById("btn-ulangi").style.display =
+                "none";
+        });
+
+
+} else if (namaHalaman === "Beranda") {
+    content.innerHTML = `
+        <div class="welcome">
+            <h2>Hai, Selamat Datang! 👋</h2>
+
+            <h1>Yuk, Jelajahi Dunia Kubus!</h1>
+
+            <p>
+                Belajar matematika jadi lebih menyenangkan!
+                Ayo kenali bangun ruang kubus melalui materi,
+                gambar, dan model 3D yang interaktif.
+            </p>
+
+            <div style="font-size: 75px; text-align: center; margin: 20px;">
+                🧊
+            </div>
+
+            <button class="btn-mulai"
+                onclick="document.querySelectorAll('.menu')[1].click()">
+                Mulai Belajar →
+            </button>
+        </div>
+    `;
+} else {
+    content.innerHTML = `
+        <h1>${namaHalaman}</h1>
+
+        <div class="welcome">
+            <h2>Selamat Belajar!</h2>
+            <p>
+                Kamu sedang membuka materi ${namaHalaman}.
+            </p>
+        </div>
+    `;
+}
+
+    });
+});
+menuButtons[0].click();
+// Menampilkan kubus 3D saat halaman Mengenal Kubus dibuka
+function bukaKubus() {
+    document.getElementById("jaring-kubus")
+        .classList.add("terbuka");
+}
+
+function lipatKubus() {
+    document.getElementById("jaring-kubus")
+        .classList.remove("terbuka");
+}
+
+
+
+
+function buatAnimasiLuasPermukaan() {
+    const area = document.getElementById("animasi-luas-kubus");
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(7, 7, 10);
+    camera.lookAt(0, 1, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    area.appendChild(renderer.domElement);
+
+    const kubus = new THREE.Group();
+    scene.add(kubus);
+
+    const bahan = new THREE.MeshBasicMaterial({
+        color: "#B9D8EA",
+        side: THREE.DoubleSide
+    });
+
+    const garisBahan = new THREE.LineBasicMaterial({
+        color: "#547D9B"
+    });
+
+    function buatPersegi(parent, posisi) {
+        const persegi = new THREE.Mesh(
+            new THREE.PlaneGeometry(2, 2),
+            bahan
+        );
+
+        persegi.position.set(...posisi);
+
+        const garis = new THREE.LineSegments(
+            new THREE.EdgesGeometry(persegi.geometry),
+            garisBahan
+        );
+
+        persegi.add(garis);
+        parent.add(persegi);
+    }
+
+    // Persegi tengah
+    buatPersegi(kubus, [0, 0, 0]);
+
+    const engsel = [];
+
+    function tambahSisi(posisi, arah, sudut) {
+        const pivot = new THREE.Group();
+        pivot.position.set(...posisi);
+        kubus.add(pivot);
+
+        buatPersegi(pivot, arah);
+
+        engsel.push({
+            pivot: pivot,
+            sumbu: sudut.sumbu,
+            sudut: sudut.nilai,
+            nilai: sudut.nilai
+        });
+
+        return pivot;
+    }
+
+    // Sisi atas
+    const sisiAtas = tambahSisi(
+        [0, 1, 0],
+        [0, 1, 0],
+        { sumbu: "x", nilai: Math.PI / 2 }
+    );
+
+    // Sisi bawah
+    tambahSisi(
+        [0, -1, 0],
+        [0, -1, 0],
+        { sumbu: "x", nilai: -Math.PI / 2 }
+    );
+
+    // Sisi kanan
+    tambahSisi(
+        [1, 0, 0],
+        [1, 0, 0],
+        { sumbu: "y", nilai: -Math.PI / 2 }
+    );
+
+    // Sisi kiri
+    tambahSisi(
+        [-1, 0, 0],
+        [-1, 0, 0],
+        { sumbu: "y", nilai: Math.PI / 2 }
+    );
+
+    // Sisi keenam menempel pada ujung sisi atas
+    const pivotKeenam = new THREE.Group();
+    pivotKeenam.position.set(0, 2, 0);
+    sisiAtas.add(pivotKeenam);
+
+    buatPersegi(pivotKeenam, [0, 1, 0]);
+
+    engsel.push({
+        pivot: pivotKeenam,
+        sumbu: "x",
+        sudut: Math.PI / 2,
+        nilai: Math.PI / 2
+    });
+
+    let targetJaring = false;
+
+    document.getElementById("btn-buka-jaring").onclick = () => {
+        targetJaring = true;
+    };
+
+    document.getElementById("btn-tutup-jaring").onclick = () => {
+        targetJaring = false;
+    };
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        engsel.forEach((item) => {
+            const tujuan = targetJaring ? 0 : item.sudut;
+
+            item.nilai += (tujuan - item.nilai) * 0.07;
+            item.pivot.rotation[item.sumbu] = item.nilai;
+        });
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
+function buatAnimasiVolumeKubus() {
+    const area = document.getElementById("animasi-volume-kubus");
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(7, 6, 8);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    area.appendChild(renderer.domElement);
+
+    const kelompokKubus = new THREE.Group();
+    scene.add(kelompokKubus);
+
+    const bahan = new THREE.MeshBasicMaterial({
+        color: "#B9D8EA"
+    });
+
+    const garisBahan = new THREE.LineBasicMaterial({
+        color: "#547D9B"
+    });
+
+    // Membuat 27 kubus satuan dalam susunan 3 × 3 × 3
+    for (let x = 0; x < 3; x++) {
+        for (let y = 0; y < 3; y++) {
+            for (let z = 0; z < 3; z++) {
+                const geometri = new THREE.BoxGeometry(0.95, 0.95, 0.95);
+                const kubus = new THREE.Mesh(geometri, bahan);
+
+                kubus.position.set(
+                    x - 1,
+                    y - 1,
+                    z - 1
+                );
+
+                const garis = new THREE.LineSegments(
+                    new THREE.EdgesGeometry(geometri),
+                    garisBahan
+                );
+
+                kubus.add(garis);
+                kelompokKubus.add(kubus);
+            }
+        }
+    }
+
+    let putar = true;
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        if (putar) {
+            kelompokKubus.rotation.y += 0.004;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
+
+function buatKubusMengenal() {
+    const area = document.getElementById("kubus-3d");
+
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(5, 4, 6);
+camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, 400);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    area.appendChild(renderer.domElement);
+
+    const kubus = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({
+            color: "#B9D8EA"
+        })
+    );
+
+    scene.add(kubus);
+
+    const garis = new THREE.LineSegments(
+        new THREE.EdgesGeometry(kubus.geometry),
+        new THREE.LineBasicMaterial({
+            color: "#527F9B"
+        })
+    );
+
+    kubus.add(garis);
+
+    let sedangDiputar = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.cursor = "grab";
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+        sedangDiputar = true;
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+        renderer.domElement.style.cursor = "grabbing";
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+        if (!sedangDiputar) return;
+
+        kubus.rotation.y += (event.clientX - posisiX) * 0.01;
+        kubus.rotation.x += (event.clientY - posisiY) * 0.01;
+
+        posisiX = event.clientX;
+        posisiY = event.clientY;
+    });
+
+    window.addEventListener("pointerup", () => {
+        sedangDiputar = false;
+        renderer.domElement.style.cursor = "grab";
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
+
+function buatDiagonalSisi() {
+    const area = document.getElementById("diagonal-sisi-3d");
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    area.appendChild(renderer.domElement);
+
+    const kubusGroup = new THREE.Group();
+    scene.add(kubusGroup);
+
+    const kubus = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({
+            color: "#B9D9EC",
+            transparent: true,
+            opacity: 0.22
+        })
+    );
+
+    kubusGroup.add(kubus);
+
+    const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(kubus.geometry),
+        new THREE.LineBasicMaterial({ color: "#527D9B" })
+    );
+
+    kubusGroup.add(edges);
+
+
+    const diagonal = [
+        [[-1,-1,1], [1,1,1]],
+        [[1,-1,1], [-1,1,1]],
+
+        [[-1,-1,-1], [1,1,-1]],
+        [[1,-1,-1], [-1,1,-1]],
+
+        [[-1,1,1], [1,1,-1]],
+        [[1,1,1], [-1,1,-1]],
+
+        [[-1,-1,1], [1,-1,-1]],
+        [[1,-1,1], [-1,-1,-1]],
+
+        [[-1,-1,1], [-1,1,-1]],
+        [[-1,1,1], [-1,-1,-1]],
+
+        [[1,-1,1], [1,1,-1]],
+        [[1,1,1], [1,-1,-1]]
+    ];
+
+    const garisMaterial = new THREE.LineBasicMaterial({
+        color: "#E58B55",
+        depthTest: false
+    });
+
+    diagonal.forEach(([awal, akhir]) => {
+        const geometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(...awal),
+            new THREE.Vector3(...akhir)
+        ]);
+
+        kubusGroup.add(new THREE.Line(geometry, garisMaterial));
+    });
+
+    let sedangGeser = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.touchAction = "none";
+
+    renderer.domElement.addEventListener("pointerdown", (e) => {
+        sedangGeser = true;
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+        renderer.domElement.setPointerCapture(e.pointerId);
+    });
+
+    renderer.domElement.addEventListener("pointermove", (e) => {
+        if (!sedangGeser) return;
+
+        const gerakX = e.clientX - posisiX;
+        const gerakY = e.clientY - posisiY;
+
+        kubusGroup.rotation.y += gerakX * 0.01;
+        kubusGroup.rotation.x += gerakY * 0.01;
+
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+    });
+
+    renderer.domElement.addEventListener("pointerup", () => {
+        sedangGeser = false;
+    });
+
+    renderer.domElement.addEventListener("pointercancel", () => {
+        sedangGeser = false;
+    });
+
+    camera.lookAt(0, 0, 0);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
+function buatDiagonalRuang() {
+    const area = document.getElementById("diagonal-ruang-3d");
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    area.appendChild(renderer.domElement);
+
+    const kubusGroup = new THREE.Group();
+    scene.add(kubusGroup);
+
+    // Kubus transparan
+    const kubus = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({
+            color: "#B9D9EC",
+            transparent: true,
+            opacity: 0.22
+        })
+    );
+
+    kubusGroup.add(kubus);
+
+    // Garis rusuk kubus
+    const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(kubus.geometry),
+        new THREE.LineBasicMaterial({
+            color: "#527D9B"
+        })
+    );
+
+    kubusGroup.add(edges);
+
+    // Empat diagonal ruang kubus
+    const daftarDiagonal = [
+        [[-1, -1, 1], [1, 1, -1]],
+        [[1, -1, 1], [-1, 1, -1]],
+        [[-1, 1, 1], [1, -1, -1]],
+        [[1, 1, 1], [-1, -1, -1]]
+    ];
+
+    const materialDiagonal = new THREE.LineBasicMaterial({
+        color: "#E58B55",
+        depthTest: false
+    });
+
+    daftarDiagonal.forEach(([awal, akhir]) => {
+        const geometry = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(...awal),
+            new THREE.Vector3(...akhir)
+        ]);
+
+        kubusGroup.add(
+            new THREE.Line(geometry, materialDiagonal)
+        );
+    });
+
+    // Interaksi putar dengan mouse dan jari
+    let sedangGeser = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.touchAction = "none";
+
+    renderer.domElement.addEventListener("pointerdown", (e) => {
+        sedangGeser = true;
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+        renderer.domElement.setPointerCapture(e.pointerId);
+    });
+
+    renderer.domElement.addEventListener("pointermove", (e) => {
+        if (!sedangGeser) return;
+
+        const gerakX = e.clientX - posisiX;
+        const gerakY = e.clientY - posisiY;
+
+        kubusGroup.rotation.y += gerakX * 0.01;
+        kubusGroup.rotation.x += gerakY * 0.01;
+
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+    });
+
+    renderer.domElement.addEventListener("pointerup", () => {
+        sedangGeser = false;
+    });
+
+    renderer.domElement.addEventListener("pointercancel", () => {
+        sedangGeser = false;
+    });
+
+    camera.lookAt(0, 0, 0);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+function buatBidangDiagonal() {
+    const area = document.getElementById("bidang-diagonal-3d");
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color("#F1F8FC");
+
+    const camera = new THREE.PerspectiveCamera(
+        45,
+        area.clientWidth / area.clientHeight,
+        0.1,
+        100
+    );
+
+    camera.position.set(4, 3, 5);
+
+    const renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+    renderer.setSize(area.clientWidth, area.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    area.appendChild(renderer.domElement);
+
+    const kubusGroup = new THREE.Group();
+    scene.add(kubusGroup);
+
+    // Membuat kubus
+    const kubus = new THREE.Mesh(
+        new THREE.BoxGeometry(2, 2, 2),
+        new THREE.MeshBasicMaterial({
+            color: "#B9D9EC",
+            transparent: true,
+            opacity: 0.22
+        })
+    );
+
+    kubusGroup.add(kubus);
+
+    // Garis rusuk kubus
+    const edges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(kubus.geometry),
+        new THREE.LineBasicMaterial({
+            color: "#527D9B"
+        })
+    );
+
+    kubusGroup.add(edges);
+// Memberikan nama pada setiap titik kubus
+const daftarTitik = [
+    ["A", -1, -1, 1],
+    ["B", 1, -1, 1],
+    ["C", 1, 1, 1],
+    ["D", -1, 1, 1],
+    ["E", -1, -1, -1],
+    ["F", 1, -1, -1],
+    ["G", 1, 1, -1],
+    ["H", -1, 1, -1]
+];
+
+daftarTitik.forEach(([nama, x, y, z]) => {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+
+    canvas.width = 128;
+    canvas.height = 128;
+
+    context.fillStyle = "#FFFFFF";
+    context.beginPath();
+    context.arc(64, 64, 34, 0, Math.PI * 2);
+    context.fill();
+
+    context.strokeStyle = "#527D9B";
+    context.lineWidth = 5;
+    context.stroke();
+
+    context.fillStyle = "#34566F";
+    context.font = "bold 58px Arial";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText(nama, 64, 65);
+
+    const texture = new THREE.CanvasTexture(canvas);
+
+    const label = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            depthTest: false
+        })
+    );
+
+    label.position.set(x * 1.18, y * 1.18, z * 1.18);
+    label.scale.set(0.35, 0.35, 1);
+
+    kubusGroup.add(label);
+});
+
+    // Membuat bidang diagonal ACGE
+    const titikBidang = [
+    [-1, -1, 1],  // A
+    [1, 1, 1],    // C
+    [1, 1, -1],   // G
+    [-1, -1, -1] // E
+];
+
+    const geometri = new THREE.BufferGeometry();
+
+    const vertices = new Float32Array([
+        ...titikBidang[0],
+        ...titikBidang[1],
+        ...titikBidang[2],
+
+        ...titikBidang[0],
+        ...titikBidang[2],
+        ...titikBidang[3]
+    ]);
+
+    geometri.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3)
+    );
+
+    const bidang = new THREE.Mesh(
+    geometri,
+    new THREE.MeshBasicMaterial({
+        color: "#F4A261",
+        transparent: true,
+        opacity: 0.48,
+        side: THREE.DoubleSide,
+        depthWrite: false
+    })
+);
+    kubusGroup.add(bidang);
+    
+
+    // Garis tepi bidang diagonal
+    const garisBidang = new THREE.LineLoop(
+    new THREE.BufferGeometry().setFromPoints(
+        titikBidang.map(titik => new THREE.Vector3(...titik))
+    ),
+    new THREE.LineBasicMaterial({
+        color: "#D66F36",
+        linewidth: 3,
+        depthTest: false
+    })
+);
+
+kubusGroup.add(garisBidang);
+// Simpan bidang dan garis agar bisa diubah melalui tombol
+window.bidangDiagonalAktif = bidang;
+window.garisBidangDiagonalAktif = garisBidang;
+
+    // Memutar kubus dengan mouse atau jari
+    let sedangGeser = false;
+    let posisiX = 0;
+    let posisiY = 0;
+
+    renderer.domElement.style.touchAction = "none";
+
+    renderer.domElement.addEventListener("pointerdown", (e) => {
+        sedangGeser = true;
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+        renderer.domElement.setPointerCapture(e.pointerId);
+    });
+
+    renderer.domElement.addEventListener("pointermove", (e) => {
+        if (!sedangGeser) return;
+
+        const gerakX = e.clientX - posisiX;
+        const gerakY = e.clientY - posisiY;
+
+        kubusGroup.rotation.y += gerakX * 0.01;
+        kubusGroup.rotation.x += gerakY * 0.01;
+
+        posisiX = e.clientX;
+        posisiY = e.clientY;
+    });
+
+    renderer.domElement.addEventListener("pointerup", () => {
+        sedangGeser = false;
+    });
+
+    renderer.domElement.addEventListener("pointercancel", () => {
+        sedangGeser = false;
+    });
+
+    camera.lookAt(0, 0, 0);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+window.ubahBidangDiagonal = function(namaBidang) {
+
+    const daftarBidang = {
+        ACGE: [
+            [-1, -1, 1],  // A
+            [1, 1, 1],    // C
+            [1, 1, -1],   // G
+            [-1, -1, -1]  // E
+        ],
+
+        BDHF: [
+            [1, -1, 1],   // B
+            [-1, 1, 1],   // D
+            [-1, 1, -1],  // H
+            [1, -1, -1]   // F
+        ],
+
+        ABGH: [
+            [-1, -1, 1],  // A
+            [1, -1, 1],   // B
+            [1, 1, -1],   // G
+            [-1, 1, -1]   // H
+        ],
+
+        CDEF: [
+            [1, 1, 1],    // C
+            [-1, 1, 1],   // D
+            [-1, -1, -1], // E
+            [1, -1, -1]   // F
+        ],
+
+        ADGF: [
+    [-1, -1, 1],  // A
+    [-1, 1, 1],   // D
+    [1, 1, -1],   // G
+    [1, -1, -1]   // F
+],
+
+BCEH: [
+    [1, -1, 1],   // B
+    [1, 1, 1],    // C
+    [-1, 1, -1],  // H
+    [-1, -1, -1]  // E
+]
+    };
+
+    const titik = daftarBidang[namaBidang];
+
+    if (!titik || !window.bidangDiagonalAktif) return;
+
+    const vertices = new Float32Array([
+        ...titik[0], ...titik[1], ...titik[2],
+        ...titik[0], ...titik[2], ...titik[3]
+    ]);
+
+    const geometriBaru = new THREE.BufferGeometry();
+
+    geometriBaru.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3)
+    );
+
+    const bidangLama = window.bidangDiagonalAktif;
+
+    bidangLama.geometry.dispose();
+    bidangLama.geometry = geometriBaru;
+
+    // Mengubah garis tepi bidang
+    const garisLama = window.garisBidangDiagonalAktif;
+
+    if (garisLama) {
+        garisLama.geometry.dispose();
+
+        garisLama.geometry =
+            new THREE.BufferGeometry().setFromPoints(
+                titik.map(t => new THREE.Vector3(...t))
+            );
+    }
+    const penjelasanBidang = {
+    ACGE: {
+        judul: "Bidang Diagonal ACGE",
+        deskripsi: "Bidang ACGE dibatasi oleh dua diagonal sisi dan dua rusuk kubus.",
+        sisi1: "AC dan GE: diagonal sisi yang sejajar.",
+        sisi2: "AE dan CG: rusuk yang sejajar."
+    },
+
+    BDHF: {
+        judul: "Bidang Diagonal BDHF",
+        deskripsi: "Bidang BDHF dibatasi oleh dua diagonal sisi dan dua rusuk kubus.",
+        sisi1: "BD dan HF: diagonal sisi yang sejajar.",
+        sisi2: "BF dan DH: rusuk yang sejajar."
+    },
+
+    ABGH: {
+        judul: "Bidang Diagonal ABGH",
+        deskripsi: "Bidang ABGH dibatasi oleh dua rusuk kubus dan dua diagonal sisi.",
+        sisi1: "AB dan GH: rusuk yang sejajar.",
+        sisi2: "AH dan BG: diagonal sisi yang sejajar."
+    },
+
+    CDEF: {
+        judul: "Bidang Diagonal CDEF",
+        deskripsi: "Bidang CDEF dibatasi oleh dua rusuk kubus dan dua diagonal sisi.",
+        sisi1: "CD dan EF: rusuk yang sejajar.",
+        sisi2: "DE dan CF: diagonal sisi yang sejajar."
+    },
+
+    ADGF: {
+    judul: "Bidang Diagonal ADGF",
+    deskripsi: "Bidang ADGF dibatasi oleh dua rusuk kubus dan dua diagonal sisi.",
+    sisi1: "AD dan GF: rusuk yang sejajar.",
+    sisi2: "DG dan AF: diagonal sisi yang sejajar."
+},
+
+BCEH: {
+    judul: "Bidang Diagonal BCEH",
+    deskripsi: "Bidang BCEH dibatasi oleh dua rusuk kubus dan dua diagonal sisi.",
+    sisi1: "BC dan EH: rusuk yang sejajar.",
+    sisi2: "CH dan BE: diagonal sisi yang sejajar."
+}
+};
+
+const info = penjelasanBidang[namaBidang];
+
+if (info) {
+    document.getElementById("isi-penjelasan-bidang").innerHTML = `
+        <h3>${info.judul}</h3>
+        <p>${info.deskripsi}</p>
+        <ul>
+            <li><strong>${info.sisi1.split(":")[0]}:</strong>${info.sisi1.split(":")[1]}</li>
+            <li><strong>${info.sisi2.split(":")[0]}:</strong>${info.sisi2.split(":")[1]}</li>
+        </ul>
+    `;
+}
+};
+</script>
+</body>
+
+</html>
